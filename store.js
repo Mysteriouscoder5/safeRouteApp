@@ -5,10 +5,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from "redux-persist";
 import userReducer from "./redux/reducers/userReducer";
 import routeReducer from "./redux/reducers/routeReducer";
+import profileReducer from "./redux/reducers/profileReducer";
+import locationReducer from "./redux/reducers/locationReducer";
 
 const reducer = combineReducers({
   user: userReducer,
   route: routeReducer,
+  profile: profileReducer,
+  location: locationReducer,
 });
 
 const persistConfig = {

@@ -1,11 +1,32 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import Modal from "react-native-modal";
 import { COLORS, INSETS, SIZES, STYLES } from "../../constants/theme";
 import { FontAwesome5, Feather, Ionicons } from "@expo/vector-icons";
+import * as Linking from "expo-linking";
+import * as Haptics from "expo-haptics";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 const EmergencyModal = ({ modalVisible, setModalVisible }) => {
   const insets = INSETS();
+  const { user } = useSelector((state) => state.user);
+  const navigation = useNavigation();
+
+  const makePhoneCall = (phone) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (Platform.OS === "android") {
+      Linking.openURL(`tel:${phone}`);
+    } else {
+      Linking.openURL(`tel:${phone}`);
+    }
+  };
   return (
     <View>
       <Modal
@@ -31,6 +52,9 @@ const EmergencyModal = ({ modalVisible, setModalVisible }) => {
         >
           <View style={{ flex: 1, gap: SIZES.m }}>
             <TouchableOpacity
+              onPress={() => {
+                makePhoneCall(101);
+              }}
               style={[
                 STYLES.button,
                 {
@@ -49,6 +73,13 @@ const EmergencyModal = ({ modalVisible, setModalVisible }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() => {
+                if (!user.primaryEmergencyContact) {
+                  navigation.navigate("EmergencyContactList");
+                  return;
+                }
+                makePhoneCall(user?.primaryEmergencyContact);
+              }}
               style={[
                 STYLES.button,
                 {

@@ -13,11 +13,13 @@ import {
   Feather,
   AntDesign,
   MaterialIcons,
+  Foundation,
 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/reducers/userReducer";
+import Line from "../components/Line";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const insets = INSETS();
@@ -25,7 +27,22 @@ const Profile = () => {
     {
       title: "edit profile",
       icon: <Feather name="edit" size={SIZES.m} color={COLORS.black} />,
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate("EditProfile");
+      },
+    },
+    {
+      title: "emergency contact list",
+      icon: (
+        <Foundation
+          name="clipboard-notes"
+          size={SIZES.m}
+          color={COLORS.black}
+        />
+      ),
+      onPress: () => {
+        navigation.navigate("EmergencyContactList");
+      },
     },
     {
       title: "logout",
@@ -83,41 +100,208 @@ const Profile = () => {
           />
         </View>
       </View>
-      {/* <ScrollView
+
+      <FlatList
+        data={tabs}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flex: 1, padding: SIZES.m }}
-      >
-        <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: SIZES.m,
-            padding: SIZES.m,
-            borderRadius: SIZES.m,
-            backgroundColor: COLORS.white,
-          }}
-        >
-          <Feather name="edit" size={SIZES.m} color={COLORS.black} />
-          <View>
+        contentContainerStyle={{ flex: 1, padding: SIZES.m, rowGap: SIZES.m }}
+        ListHeaderComponent={
+          <View
+            style={{
+              backgroundColor: COLORS.white,
+              borderRadius: SIZES.l,
+              padding: SIZES.m,
+              borderColor: COLORS.black,
+              borderWidth: 1,
+              gap: SIZES.s,
+            }}
+          >
             <Text
               style={{
                 fontFamily: "medium",
                 textTransform: "capitalize",
                 color: COLORS.black,
+                fontSize: SIZES.l,
               }}
             >
-              edit profile
+              Personal information
             </Text>
+            <Line style={{ opacity: 0.1 }} />
+            <View style={{ gap: 5 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  gap: SIZES.m,
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    flex: 1,
+                  }}
+                >
+                  Age
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    color: COLORS.grey2,
+                    flex: 1,
+                  }}
+                >
+                  {user?.age || "--"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  gap: SIZES.m,
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    flex: 1,
+                  }}
+                >
+                  gender
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    color: COLORS.grey2,
+                    flex: 1,
+                  }}
+                >
+                  {user?.gender || "--"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  gap: SIZES.m,
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+
+                    flex: 1,
+                  }}
+                >
+                  primary emergency contact
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    color: COLORS.grey2,
+                    flex: 1,
+                  }}
+                >
+                  {user?.primaryEmergencyContact || "--"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  gap: SIZES.m,
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+
+                    flex: 1,
+                  }}
+                >
+                  physical disability
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    color: COLORS.grey2,
+                    flex: 1,
+                  }}
+                >
+                  {user?.physicalDisability || "--"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  gap: SIZES.m,
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+
+                    flex: 1,
+                  }}
+                >
+                  medical condition
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    color: COLORS.grey2,
+                    flex: 1,
+                  }}
+                >
+                  {user?.medicalCondition || "--"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  gap: SIZES.m,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    flex: 1,
+                  }}
+                >
+                  Home address
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    textTransform: "capitalize",
+                    color: COLORS.grey2,
+                    flex: 1,
+                  }}
+                >
+                  {user?.homeAddress || "--"}
+                </Text>
+              </View>
+            </View>
           </View>
-          <View style={{ marginLeft: "auto" }}>
-            <AntDesign name="right" size={SIZES.m} color={COLORS.black} />
-          </View>
-        </TouchableOpacity>
-      </ScrollView> */}
-      <FlatList
-        data={tabs}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flex: 1, padding: SIZES.m, rowGap: SIZES.m }}
+        }
         renderItem={({ item }) => (
           <TouchableOpacity
             style={{

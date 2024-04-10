@@ -5,6 +5,10 @@ import { COLORS, SIZES } from "../constants/theme";
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import { Ionicons } from "@expo/vector-icons";
+import { UserIcon as UserIconOutlined } from "react-native-heroicons/outline";
+import { UserIcon as UserIconSolid } from "react-native-heroicons/solid";
+import { HomeIcon as HomeIconOutlined } from "react-native-heroicons/outline";
+import { HomeIcon as HomeIconSolid } from "react-native-heroicons/solid";
 
 const Tab = createBottomTabNavigator();
 const size = 24;
@@ -31,11 +35,13 @@ const BottomNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return (
-              <Ionicons
-                name={focused ? "home-sharp" : "home-outline"}
-                size={size}
-                color={focused ? COLORS.primary : COLORS.grey2}
-              />
+              <>
+                {focused ? (
+                  <HomeIconSolid color={COLORS.primary} size={size} />
+                ) : (
+                  <HomeIconOutlined color={COLORS.grey2} size={size} />
+                )}
+              </>
             );
           },
           tabBarLabelStyle: {
@@ -50,11 +56,13 @@ const BottomNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) => {
             return (
-              <Ionicons
-                name={focused ? "person-sharp" : "person-outline"}
-                size={size}
-                color={focused ? COLORS.primary : COLORS.grey2}
-              />
+              <>
+                {focused ? (
+                  <UserIconSolid color={COLORS.primary} size={size} />
+                ) : (
+                  <UserIconOutlined color={COLORS.grey2} size={size} />
+                )}
+              </>
             );
           },
           tabBarLabelStyle: {

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { COLORS, INSETS, SHADOWS, SIZES, STYLES } from "../constants/theme";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
@@ -45,7 +45,21 @@ const Home = () => {
       // console.error(`Error processing ${room}: ${error.message}`);
     }
   };
+  const mapRef = useRef();
 
+  const reCenter = () => {
+    const lat = 18.531583;
+    const lng = 73.867028;
+    mapRef.current.animateToRegion(
+      {
+        latitude: lat,
+        longitude: lng,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001,
+      },
+      500
+    );
+  };
   //   useEffect(() => {
   //     addDoc(collection(db, "users"), { username: "prajwal" });
   //   }, []);
@@ -87,7 +101,11 @@ const Home = () => {
             saferoute
           </Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            reCenter();
+          }}
+        >
           <MaterialIcons name="gps-fixed" size={24} color={COLORS.white} />
         </TouchableOpacity>
       </View>
@@ -97,6 +115,7 @@ const Home = () => {
         houseOutline={houseOutline}
         paths={path}
         wayOut={wayOut}
+        ref={mapRef}
       />
 
       {/* <TouchableOpacity

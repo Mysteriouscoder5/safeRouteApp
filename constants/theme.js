@@ -54,7 +54,7 @@ const STYLES = {
   ],
   buttonText: {
     fontFamily: "bold",
-    color: "black",
+    color: "white",
     fontSize: SIZES.m,
     textTransform: "uppercase",
   },

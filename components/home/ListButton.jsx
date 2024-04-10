@@ -19,6 +19,7 @@ import * as RoomIndex from "../../GeoResources/index";
 import List from "./List";
 import { useDispatch, useSelector } from "react-redux";
 import { registerRoute } from "../../redux/reducers/routeReducer";
+import { setLocation } from "../../redux/reducers/locationReducer";
 
 const ListButton = ({}) => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const ListButton = ({}) => {
   const getUserLocation = async () => {
     try {
       const location = await Location.getCurrentPositionAsync({});
+      dispatch(setLocation(location));
       const locationData = [
         // location.coords.latitude,
         // location.coords.longitude,
@@ -106,7 +108,6 @@ const ListButton = ({}) => {
   //   const seconds = date.getSeconds().toString().padStart(2, "0");
   //   return { hours, minutes, seconds };
   // };
-
   // const { hours, minutes, seconds } = splitTimestamp(timestamp);
 
   useEffect(() => {

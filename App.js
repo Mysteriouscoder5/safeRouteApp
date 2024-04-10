@@ -12,6 +12,8 @@ import Login from "./screens/Login";
 import Otp from "./screens/Otp";
 import { useFonts } from "expo-font";
 import { loadUser } from "./redux/reducers/userReducer";
+import EmergencyContactList from "./screens/EmergencyContactList";
+import EditProfile from "./screens/EditProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +40,16 @@ const AppStack = () => {
       <Stack.Screen
         name="BottomNavigation"
         component={BottomNavigation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EmergencyContactList"
+        component={EmergencyContactList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

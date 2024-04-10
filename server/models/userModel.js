@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const { type } = require("os");
 
 const userSchema = new mongoose.Schema(
   {
@@ -32,18 +33,45 @@ const userSchema = new mongoose.Schema(
       type: String,
       select: false,
     },
+    primaryEmergencyContact: {
+      type: Number,
+      trim: true,
+      minlength: [10, "CONTACT NUMBER SHOULD BE MINIMUM 10 DIGITS"],
+    },
+    emergencyContactList: [
+      {
+        contactName: {
+          type: String,
+          trim: true,
+          required: true,
+          lowercase: true,
+        },
+        contactPhone: {
+          type: Number,
+          required: true,
+          minlength: [10, "CONTACT NUMBER SHOULD BE MINIMUM 10 DIGITS"],
+        },
+      },
+    ],
 
-    location: {
-      type: {
-        type: String,
-        // required: true,
-      },
-      coordinates: [Number],
-      heading: {
-        type: Number,
-        default: 0,
-        // required: true,
-      },
+    age: {
+      type: Number,
+    },
+
+    gender: {
+      type: String,
+      enum: ["male", "female", "others"],
+      lowercase: true,
+      trim: true,
+    },
+    physicalDisability: {
+      type: String,
+    },
+    medicalCondition: {
+      type: String,
+    },
+    homeAddress: {
+      type: String,
     },
     expoPushTokens: [String],
   },
