@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js -e js,env",
     "start": "node app.js",
-    "build": "npm i"
+    "build": "npm i",
+    "client": "npm start --prefix client"
   },
   "author": "",
   "license": "ISC",
