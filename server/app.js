@@ -23,6 +23,13 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+async function serveStatic() {
+  app.use(express.static(path.join(__dirname, "./client/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "./client/dist"));
+  });
+}
+
 app.use(
   cors({
     origin: "*",
@@ -37,6 +44,8 @@ app.use("/api/v1/haus", hausRoute);
 
 const server = app.listen(port, () => {
   console.log(`Listening to port ${port}`);
+  serveStatic();
+
 });
 
 // unhandled rejection problem
