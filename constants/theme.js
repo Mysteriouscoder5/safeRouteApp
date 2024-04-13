@@ -77,6 +77,6 @@ const INSETS = () => {
   return insets;
 };
 // const BASE_URL = "http://172.20.10.12:8001";
-const BASE_URL = "https://saferoute-wt32.onrender.com";
+const BASE_URL = "https://saferouteapp.onrender.com";
 
 export { COLORS, SIZES, SHADOWS, STYLES, INSETS, BASE_URL };
