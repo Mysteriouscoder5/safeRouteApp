@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const insets = INSETS();
+  
   const [emergencyModal, setEmergencyModal] = useState(false);
 
   const [coordinates, setCoordinates] = useState({

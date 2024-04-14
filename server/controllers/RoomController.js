@@ -37,6 +37,24 @@ const getRoomDetails = async (req, res) => {
   }
 };
 
+const getAllRooms = async (req, res) => {
+  try {
+    const rooms = await Room.find();
+    if (!rooms) {
+      return res.status(400).json({
+        success: false,
+        message: "NO ROOM FOUND",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      rooms,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 const updateRoomDetails = async (req, res) => {
   try {
     const { temperature } = req.body;
@@ -61,4 +79,9 @@ const updateRoomDetails = async (req, res) => {
   }
 };
 
-module.exports = { getRoomDetails, updateRoomDetails, createNewRoom };
+module.exports = {
+  getRoomDetails,
+  updateRoomDetails,
+  createNewRoom,
+  getAllRooms,
+};

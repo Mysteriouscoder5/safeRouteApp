@@ -14,6 +14,7 @@ import { useFonts } from "expo-font";
 import { loadUser } from "./redux/reducers/userReducer";
 import EmergencyContactList from "./screens/EmergencyContactList";
 import EditProfile from "./screens/EditProfile";
+import { getAllRooms } from "./redux/reducers/roomsReducer";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,7 @@ const AppStack = () => {
 
 const RootNavigation = () => {
   const { user, token, loading } = useSelector((state) => state.user);
+  const { error, rooms } = useSelector((state) => state.rooms); //to get the rooms data from Redux store
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -65,6 +67,10 @@ const RootNavigation = () => {
       dispatch(loadUser());
     }
   }, [dispatch, token]);
+
+  useEffect(() => {
+    dispatch(getAllRooms());
+  }, [dispatch]);
 
   return (
     <NavigationContainer>
