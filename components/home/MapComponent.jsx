@@ -13,7 +13,7 @@ const MapComponent = React.forwardRef(
     const route = useSelector((state) => state.route);
     return (
       <Animated
-        // provider={PROVIDER_GOOGLE} // only works in google maps
+        provider={PROVIDER_GOOGLE} // only works in google maps
         style={{ flex: 1 }}
         ref={ref}
         loadingEnabled={true}
@@ -34,8 +34,8 @@ const MapComponent = React.forwardRef(
           new AnimatedRegion({
             latitude: coordinates.latitude,
             longitude: coordinates.longitude,
-            latitudeDelta: 0.001, // Decreased from 0.0922
-            longitudeDelta: 0.001,
+            latitudeDelta: 0.0006, // Decreased from 0.0922
+            longitudeDelta: 0.0006,
           })
         }
       >
@@ -68,7 +68,7 @@ const MapComponent = React.forwardRef(
             geojson={wayOut}
             strokeColor="#0F0"
             fillColor="rgba(0,255,0,0.5)"
-            strokeWidth={2}
+            strokeWidth={5}
           />
         )}
       </Animated>

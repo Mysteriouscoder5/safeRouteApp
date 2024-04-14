@@ -55,8 +55,8 @@ const Home = () => {
       {
         latitude: lat,
         longitude: lng,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
+        latitudeDelta: 0.0007,
+        longitudeDelta: 0.0007,
       },
       500
     );

@@ -82,13 +82,13 @@ const ListButton = ({}) => {
         if (isInside) {
           dispatch(
             registerRoute({
-              Room: "Room18",
-              Path: "w18",
+              Room: "Room1",
+              Path: "w1",
               Exit: "Exit1",
               WayOut: "w99",
             })
           );
-          dispatch(getRoomDetails({ number: 18 }));
+          dispatch(getRoomDetails({ number: 1 }));
           break;
         }
       } catch (error) {
