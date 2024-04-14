@@ -6,9 +6,11 @@ import MapView, {
   AnimatedRegion,
 } from "react-native-maps";
 import { SIZES } from "../../constants/theme";
+import { useSelector } from "react-redux";
 
 const MapComponent = React.forwardRef(
   ({ coordinates, destination, paths, houseOutline, wayOut }, ref) => {
+    const route = useSelector((state) => state.route);
     return (
       <Animated
         // provider={PROVIDER_GOOGLE} // only works in google maps
@@ -37,6 +39,14 @@ const MapComponent = React.forwardRef(
           })
         }
       >
+        {paths && (
+          <Geojson
+            geojson={paths}
+            strokeColor="#F00"
+            fillColor="rgba(255,0,0,0.5)"
+            strokeWidth={5}
+          />
+        )}
         {destination && (
           <Geojson
             geojson={destination}
@@ -48,14 +58,6 @@ const MapComponent = React.forwardRef(
         {houseOutline && (
           <Geojson
             geojson={houseOutline}
-            strokeColor="#F00"
-            fillColor="rgba(255,0,0,0.5)"
-            strokeWidth={2}
-          />
-        )}
-        {paths && (
-          <Geojson
-            geojson={paths}
             strokeColor="#F00"
             fillColor="rgba(255,0,0,0.5)"
             strokeWidth={2}

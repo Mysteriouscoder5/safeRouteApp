@@ -10,10 +10,13 @@ import Modal from "react-native-modal";
 import { COLORS, INSETS, SHADOWS, SIZES, STYLES } from "../../constants/theme";
 import { FontAwesome5, Feather, Ionicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { registerRoute } from "../../redux/reducers/routeReducer";
 
 const List = ({ modalVisible, setModalVisible, userLocation }) => {
   const route = useSelector((state) => state.route);
+  const { rooms } = useSelector((state) => state.rooms);
+  const dispatch = useDispatch();
   const insets = INSETS();
   const data = [
     {
@@ -126,9 +129,9 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                 </View>
               }
               contentContainerStyle={{ rowGap: SIZES.m }}
-              data={data}
+              data={rooms}
               renderItem={({ item }) => (
-                <View
+                <TouchableOpacity
                   style={{
                     backgroundColor: COLORS.bg,
                     borderRadius: SIZES.l,
@@ -137,6 +140,17 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: SIZES.m,
+                  }}
+                  onPress={() => {
+                    dispatch(
+                      registerRoute({
+                        Room: `Room${item?.roomNumber}`,
+                        Path: `w${item?.roomNumber}`,
+                        Exit: `Exit1`,
+                        WayOut: `w99`,
+                      })
+                    );
+                    setModalVisible(false);
                   }}
                 >
                   <View>
@@ -158,7 +172,7 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                         fontSize: SIZES.s,
                       }}
                     >
-                      temperature {item?.temperature}
+                      temperature {item?.temperature || "--"} °C
                     </Text>
                     <Text
                       style={{
@@ -168,11 +182,11 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                         fontSize: SIZES.s,
                       }}
                     >
-                      humidity {item?.humidity}
+                      humidity {item?.humidity || "30%"}
                     </Text>
                   </View>
                   <View>{item?.icon}</View>
-                </View>
+                </TouchableOpacity>
               )}
             />
           </View>
