@@ -52,7 +52,7 @@ const updateRoomDetails = async (req, res) => {
         message: "ROOM NOT UPDATED",
       });
     }
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       room,
     });
