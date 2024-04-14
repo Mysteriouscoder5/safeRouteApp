@@ -8,6 +8,7 @@ const path = require("path");
 const userRoute = require("./routes/v1/User");
 const pathRoute = require("./routes/v1/Path");
 const hausRoute = require("./routes/v1/Haus");
+const roomRoute = require("./routes/v1/Room");
 
 const port = process.env.PORT;
 require("./db/connection");
@@ -39,13 +40,13 @@ app.use(
 );
 
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/room", roomRoute);
 app.use("/api/v1/path", pathRoute);
 app.use("/api/v1/haus", hausRoute);
 
 const server = app.listen(port, () => {
   console.log(`Listening to port ${port}`);
   serveStatic();
-
 });
 
 // unhandled rejection problem
