@@ -20,10 +20,13 @@ import List from "./List";
 import { useDispatch, useSelector } from "react-redux";
 import { registerRoute } from "../../redux/reducers/routeReducer";
 import { setLocation } from "../../redux/reducers/locationReducer";
+import { getRoomDetails } from "../../redux/reducers/roomDetailsReducer";
 
 const ListButton = ({}) => {
   const dispatch = useDispatch();
   const route = useSelector((state) => state.route);
+  const { room } = useSelector((state) => state.roomDetails);
+
   const [maps, setMaps] = useState([]);
   const [listModal, setListModal] = useState(false);
   const [position, setPosition] = useState(false);
@@ -85,12 +88,7 @@ const ListButton = ({}) => {
               WayOut: "w99",
             })
           );
-          // setRoute({
-          //   Room: "Room18",
-          //   Path: "w18",
-          //   Exit: "Exit1",
-          //   WayOut: "w99",
-          // });
+          dispatch(getRoomDetails({ number: 18 }));
           break;
         }
       } catch (error) {
@@ -157,7 +155,7 @@ const ListButton = ({}) => {
                 fontSize: SIZES.m,
               }}
             >
-              You are inside {route.Room}
+              You are inside Room {room?.roomNumber}
             </Text>
             <Text
               style={{
@@ -167,7 +165,7 @@ const ListButton = ({}) => {
                 fontSize: SIZES.s,
               }}
             >
-              temperature 23.4°C
+              temperature {room?.temperature || "--"} °C
             </Text>
             <Text
               style={{
@@ -177,7 +175,7 @@ const ListButton = ({}) => {
                 fontSize: SIZES.s,
               }}
             >
-              humidity 60%
+              humidity {room?.humidity || "30"}%
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

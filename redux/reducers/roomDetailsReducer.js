@@ -37,6 +37,10 @@ const roomDetailsSlice = createSlice({
     clearErrors: (state) => {
       state.error = null;
     },
+    setRoomDetails: (state, action) => {
+      state.loading = false;
+      state.room = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getRoomDetails.pending, (state, action) => {
@@ -53,5 +57,5 @@ const roomDetailsSlice = createSlice({
     });
   },
 });
-export const { clearErrors } = roomDetailsSlice.actions;
+export const { clearErrors, setRoomDetails } = roomDetailsSlice.actions;
 export default roomDetailsSlice.reducer;

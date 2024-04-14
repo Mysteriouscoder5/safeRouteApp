@@ -9,6 +9,7 @@ export const w7 = () => import("./w7.json");
 export const w8 = () => import("./w8.json");
 export const w9 = () => import("./w9.json");
 export const w99 = () => import("./w99.json");
+export const w98 = () => import("./w98.json");
 export const w10 = () => import("./w10.json");
 export const w11 = () => import("./w11.json");
 export const w12 = () => import("./w12.json");

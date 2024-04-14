@@ -57,10 +57,34 @@ const getAllRooms = async (req, res) => {
 
 const updateRoomDetails = async (req, res) => {
   try {
-    const { temperature } = req.body;
+    const { temperature, pathNumber, exitNumber } = req.body;
     const room = await Room.findOneAndUpdate(
       { roomNumber: req.params.number },
-      { temperature },
+      { temperature, pathNumber, exitNumber },
+      { new: true }
+    );
+
+    if (!room) {
+      return res.status(400).json({
+        success: false,
+        message: "ROOM NOT UPDATED",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      room,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const updateMultipleRoomDetails = async (req, res) => {
+  try {
+    const { temperature, pathNumber, exitNumber, wayOutNumber } = req.body;
+    const room = await Room.updateMany(
+      { exitNumber: req.params.number },
+      { wayOutNumber },
       { new: true }
     );
 
@@ -84,4 +108,5 @@ module.exports = {
   updateRoomDetails,
   createNewRoom,
   getAllRooms,
+  updateMultipleRoomDetails,
 };

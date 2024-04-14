@@ -12,10 +12,13 @@ import { FontAwesome5, Feather, Ionicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { registerRoute } from "../../redux/reducers/routeReducer";
+import { setRoomDetails } from "../../redux/reducers/roomDetailsReducer";
 
 const List = ({ modalVisible, setModalVisible, userLocation }) => {
   const route = useSelector((state) => state.route);
   const { rooms } = useSelector((state) => state.rooms);
+  const { room } = useSelector((state) => state.roomDetails);
+
   const dispatch = useDispatch();
   const insets = INSETS();
   const data = [
@@ -69,6 +72,8 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
         >
           <View style={{ flex: 1, gap: SIZES.m }}>
             <FlatList
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
               ListHeaderComponent={
                 <View
                   style={[
@@ -96,7 +101,7 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                         fontSize: SIZES.m,
                       }}
                     >
-                      You are inside {route?.Room}
+                      You are inside Room {room?.roomNumber}
                     </Text>
                     <Text
                       style={{
@@ -106,7 +111,7 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                         fontSize: SIZES.s,
                       }}
                     >
-                      temperature 23.4°C
+                      temperature {room?.temperature || "--"} °C
                     </Text>
                     <Text
                       style={{
@@ -116,7 +121,7 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                         fontSize: SIZES.s,
                       }}
                     >
-                      humidity 60%
+                      humidity {room?.humidity || "30"}%
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -145,11 +150,12 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                     dispatch(
                       registerRoute({
                         Room: `Room${item?.roomNumber}`,
-                        Path: `w${item?.roomNumber}`,
-                        Exit: `Exit1`,
-                        WayOut: `w99`,
+                        Path: `w${item?.pathNumber}`,
+                        Exit: `Exit${item?.exitNumber}`,
+                        WayOut: `w${item?.wayOutNumber}`,
                       })
                     );
+                    dispatch(setRoomDetails(item));
                     setModalVisible(false);
                   }}
                 >

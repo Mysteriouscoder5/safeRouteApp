@@ -9,10 +9,19 @@ const roomSchema = new mongoose.Schema(
     roomNumber: {
       type: Number,
     },
+    pathNumber: {
+      type: Number,
+    },
+    exitNumber: {
+      type: Number,
+    },
+    wayOutNumber: {
+      type: Number,
+    },
     temperature: {
       type: String,
     },
-    smoke: {
+    humidity: {
       type: Number,
     },
   },
