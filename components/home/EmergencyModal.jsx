@@ -75,6 +75,7 @@ const EmergencyModal = ({ modalVisible, setModalVisible }) => {
             <TouchableOpacity
               onPress={() => {
                 if (!user.primaryEmergencyContact) {
+                  setModalVisible(false);
                   navigation.navigate("EmergencyContactList");
                   return;
                 }

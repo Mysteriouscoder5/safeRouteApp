@@ -19,14 +19,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       validate: [validator.isEmail, "PLEASE ENTER A VALID EMAIL"],
-      index: { unique: true, sparse: true },
+      // index: { unique: true, sparse: true },
     },
 
     phone: {
       type: Number,
       trim: true,
       minlength: [10, "CONTACT NUMBER SHOULD BE MINIMUM 10 DIGITS"],
-      index: { unique: true, sparse: true },
+      // index: { unique: true, sparse: true },
     },
 
     password: {
