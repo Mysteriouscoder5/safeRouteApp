@@ -105,7 +105,7 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                     </Text>
                     <Text
                       style={{
-                        fontFamily: "medium",
+                        fontFamily: "semibold",
                         color: COLORS.white,
                         opacity: 0.5,
                         fontSize: SIZES.s,
@@ -115,7 +115,7 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                     </Text>
                     <Text
                       style={{
-                        fontFamily: "medium",
+                        fontFamily: "semibold",
                         color: COLORS.white,
                         opacity: 0.5,
                         fontSize: SIZES.s,
@@ -138,13 +138,15 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={{
-                    backgroundColor: COLORS.bg,
+                    // backgroundColor: COLORS.bg,
                     borderRadius: SIZES.l,
                     padding: SIZES.m,
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: SIZES.m,
+                    backgroundColor:
+                      item?.temperature > 50 ? "rgba(255,0,0,0.5)" : COLORS.bg,
                   }}
                   onPress={() => {
                     dispatch(
@@ -172,9 +174,10 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                     </Text>
                     <Text
                       style={{
-                        fontFamily: "medium",
-                        color: COLORS.grey2,
-                        opacity: 0.5,
+                        fontFamily: "semibold",
+                        color:
+                          item?.temperature > 50 ? COLORS.white : COLORS.grey2,
+                        opacity: item?.temperature > 50 ? 0.8 : 0.5,
                         fontSize: SIZES.s,
                       }}
                     >
@@ -182,9 +185,10 @@ const List = ({ modalVisible, setModalVisible, userLocation }) => {
                     </Text>
                     <Text
                       style={{
-                        fontFamily: "medium",
-                        color: COLORS.grey2,
-                        opacity: 0.5,
+                        fontFamily: "semibold",
+                        color:
+                          item?.temperature > 50 ? COLORS.white : COLORS.grey2,
+                        opacity: item?.temperature > 50 ? 0.8 : 0.5,
                         fontSize: SIZES.s,
                       }}
                     >

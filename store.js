@@ -9,6 +9,7 @@ import profileReducer from "./redux/reducers/profileReducer";
 import locationReducer from "./redux/reducers/locationReducer";
 import roomsReducer from "./redux/reducers/roomsReducer";
 import roomDetailsReducer from "./redux/reducers/roomDetailsReducer";
+import locationPermissionReducer from "./redux/reducers/locationPermissionReducer";
 
 const reducer = combineReducers({
   user: userReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   location: locationReducer,
   rooms: roomsReducer,
   roomDetails: roomDetailsReducer,
+  locationPermission: locationPermissionReducer,
 });
 
 const persistConfig = {

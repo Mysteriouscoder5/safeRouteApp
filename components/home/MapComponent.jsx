@@ -5,18 +5,44 @@ import MapView, {
   Animated,
   AnimatedRegion,
 } from "react-native-maps";
-import { SIZES } from "../../constants/theme";
+import { COLORS, SIZES } from "../../constants/theme";
 import { useSelector } from "react-redux";
+import { View ,Text} from "react-native";
+
+const RoomTooltip = ({ roomNumber }) => {
+  return (
+    <View style={{ position: "absolute", zIndex: 999 }}>
+      <View style={{ backgroundColor: "white", padding: 5, borderRadius: 5 }}>
+        <Text>{roomNumber}</Text>
+      </View>
+    </View>
+  );
+};
 
 const MapComponent = React.forwardRef(
-  ({ coordinates, destination, paths, houseOutline, wayOut }, ref) => {
+  (
+    {
+      coordinates,
+      destination,
+      paths,
+      houseOutline,
+      wayOut,
+      redRooms,
+      setRedRoomsOutline,
+      redRoomsOutline,
+    },
+    ref
+  ) => {
     const route = useSelector((state) => state.route);
+    const { rooms } = useSelector((state) => state.rooms);
+
     return (
       <Animated
         provider={PROVIDER_GOOGLE} // only works in google maps
         style={{ flex: 1 }}
         ref={ref}
         loadingEnabled={true}
+        showsUserLocation
         onMapReady={() => {
           ref?.current?.fitToCoordinates(
             [
@@ -42,25 +68,37 @@ const MapComponent = React.forwardRef(
         {paths && (
           <Geojson
             geojson={paths}
-            strokeColor="#F00"
-            fillColor="rgba(255,0,0,0.5)"
+            strokeColor={COLORS.primary}
+            fillColor={COLORS.secondary}
             strokeWidth={5}
           />
         )}
+        {Array.from(redRoomsOutline.entries()).map(([key, item], index) => (
+          <React.Fragment key={index}>
+            <Geojson
+              geojson={item}
+              strokeColor="#F00"
+              fillColor="rgba(255,0,0,0.5)"
+              strokeWidth={3}
+            />
+            {/* <RoomTooltip roomNumber={key} /> */}
+          </React.Fragment>
+        ))}
         {destination && (
           <Geojson
             geojson={destination}
             strokeColor="#0F0"
             fillColor="rgba(0,255,0,0.5)"
-            strokeWidth={2}
+            strokeWidth={3}
           />
         )}
+
         {houseOutline && (
           <Geojson
             geojson={houseOutline}
-            strokeColor="#F00"
-            fillColor="rgba(255,0,0,0.5)"
-            strokeWidth={2}
+            strokeColor={COLORS.primary}
+            fillColor={COLORS.secondary}
+            strokeWidth={3}
           />
         )}
         {wayOut && (

@@ -9,6 +9,7 @@ const userRoute = require("./routes/v1/User");
 const pathRoute = require("./routes/v1/Path");
 const hausRoute = require("./routes/v1/Haus");
 const roomRoute = require("./routes/v1/Room");
+const notificationRoute = require("./routes/v1/Notification");
 
 const port = process.env.PORT;
 require("./db/connection");
@@ -43,6 +44,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/room", roomRoute);
 app.use("/api/v1/path", pathRoute);
 app.use("/api/v1/haus", hausRoute);
+app.use("/api/v1/notification", notificationRoute);
 
 const server = app.listen(port, () => {
   console.log(`Listening to port ${port}`);

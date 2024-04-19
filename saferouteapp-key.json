@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "saferouteapp-be602",
+  "private_key_id": "f4d3cb0b038eb2ebf3aad4d20edbe1237643e088",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDCVaVtsW21Rmny\nvbe698CTAXgi+bp17pNgAoW6gIzsZrzz7yTaqIhKU/H+7lInwOnWuy2miZe1Bqiv\nPWF+nQns3C2+Gsg3YAbdNqNOtaXHfSSpLJZ1NS0bAg/slynwPzqEkKTiHblXhvnx\n5pufCCZXpcWtRTfRbNAHUC+QDIuSkv8qdK4LD2gXYYbXnc0rwI4mXjM8mXLK3MPC\nnBu51Rf5I4gBz3D9xGHljmz2pIUeQ7ABwtkQBHuGJnZoo2W+nMWU6MAP+fA7iiL5\nLxjA05ZFigPD25IYQO1bfHn3yug9rpIr3Q4GvA7eQHU6LcdLuZztZj549IrE0iC+\nAq1m/jaNAgMBAAECggEAA2lKTN1j4gjRJHYbmEraj3S5EDtxgDn2o3q6hbkAIEiN\nEbwgLxLCcl7nB9T/o1vXJFI8qCh7UwMW/sfVTbTB1JhTLjvdSV7kZ/QvqYVLRRqc\n2Y0N5r35o3h7C+m7DlD8fOYRcDhaL/Tk2iVJ6eCpqaQK5F0rcGqYUT82rTDnL09g\n6OAvMuVH+n1LSBVM/Y3Jaa4J7bQ4MwVTH7lBUFKOxZSV34029HjFWrIk5yF6KfVh\nJ7VkiPGLwu0hjMeAVlyfzXVhGEjbroigOwoEHYPKaGvnLchfDpL5tf1E3Q8g4axb\ndXgnzduk4qfxNiJ5OZvdGXSa0a4hf6BGQD/oFswU6QKBgQDx4SEjD+yZIjpgoV/F\n3Z7Z3ttHA5SFBd3KyyWN5ndVHFbV4UJ0U09nRyB91d79bJAGJnEKgdbgkiV/LC/D\nwU3Yzku7LxQtKhB2BdI75iOM6lcjDC1E05DREzBx5+hBRxX/VxUJ8AbMXOhRg1lc\nQ9g/abqif7mwWiggalyaIWvU+QKBgQDNrfZXueJSZJjuPH3qL7ajd6TVi4aSqjtN\nEk39bLw4zwjc5W5xi1hw/h3pzOL8jeI4g8M98tXm8+EcygYV/oDwR+FXgt8OeUWV\nEPpvER3fENeedJ1VKWJKwvOXPdIWSjthCsGJ9HNDXZx8MGZyPp78rkHwp//vqqLC\nZyi3c77XNQKBgDYVftFWODMtghwlOUMHAQP6XtGMLWNpImS789O82qX/RjNgwPk9\nv516O/unHMtRwQp/Afu1eJSSWSwMd0mwKXX2+twJ9Nr8ct3RA2c9WGmj5IQDrwOa\nwuDdB5IQptAh0vtbP2sPbpW3mILReeO1j97uBztaj+ys3BgTcE1Od8wRAoGBAIQe\nhSlg/GKUwC/4p6FxOM7UoguSbsVzmFgvs+1glZ+gTj8nGcTSD+O1OJ3gwMYelfxb\nl2UJwiFy81284B/stgKjCbtfE82GVQ4mM9h4lEmf1gGxQwdbaApCJJs4WOV8lZwG\nfsARSKEzVrvnk0c7toD1puHh6OOZJqfeACensCUpAoGAEuCH0WLe2W2mhHD869mH\nvzOiU5O4LqbipnRhS836aim3zpORKSw9UGdOg2NcvaN+HPI3AsNs3muyJf8CbdA/\nqTezJczpIzwIGejTlNqwJiKDgypZAKxh1DkrLu6D/ndJi2+qD9PU5CaZ2tLVF5LP\nd5cQlXzYMZStjvFMbIsfSp0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-3dwww@saferouteapp-be602.iam.gserviceaccount.com",
+  "client_id": "105208901344873810380",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3dwww%40saferouteapp-be602.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

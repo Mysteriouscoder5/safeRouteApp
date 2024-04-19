@@ -21,11 +21,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerRoute } from "../../redux/reducers/routeReducer";
 import { setLocation } from "../../redux/reducers/locationReducer";
 import { getRoomDetails } from "../../redux/reducers/roomDetailsReducer";
+import { getAllRooms } from "../../redux/reducers/roomsReducer";
 
 const ListButton = ({}) => {
   const dispatch = useDispatch();
   const route = useSelector((state) => state.route);
   const { room } = useSelector((state) => state.roomDetails);
+  const { location } = useSelector((state) => state.location);
+
+
+  const { rooms, loading } = useSelector((state) => state.rooms);
 
   const [maps, setMaps] = useState([]);
   const [listModal, setListModal] = useState(false);
@@ -42,8 +47,6 @@ const ListButton = ({}) => {
 
   const getUserLocation = async () => {
     try {
-      const location = await Location.getCurrentPositionAsync({});
-      dispatch(setLocation(location));
       const locationData = [
         // location.coords.latitude,
         // location.coords.longitude,
@@ -61,6 +64,7 @@ const ListButton = ({}) => {
     setPosition(true);
     try {
       getUserLocation();
+      dispatch(getAllRooms());
     } catch (error) {
       console.error(error);
     } finally {
@@ -82,13 +86,13 @@ const ListButton = ({}) => {
         if (isInside) {
           dispatch(
             registerRoute({
-              Room: "Room1",
-              Path: "w1",
+              Room: "Room12",
+              Path: "w12",
               Exit: "Exit1",
               WayOut: "w99",
             })
           );
-          dispatch(getRoomDetails({ number: 1 }));
+          dispatch(getRoomDetails({ number: 12 }));
           break;
         }
       } catch (error) {
@@ -159,7 +163,7 @@ const ListButton = ({}) => {
             </Text>
             <Text
               style={{
-                fontFamily: "medium",
+                fontFamily: "semibold",
                 color: COLORS.white,
                 opacity: 0.5,
                 fontSize: SIZES.s,
@@ -169,7 +173,7 @@ const ListButton = ({}) => {
             </Text>
             <Text
               style={{
-                fontFamily: "medium",
+                fontFamily: "semibold",
                 color: COLORS.white,
                 opacity: 0.5,
                 fontSize: SIZES.s,
@@ -179,12 +183,14 @@ const ListButton = ({}) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={loading}
             onPress={() => {
               refreshData();
             }}
+            style={{ justifyContent: "center", alignItems: "center" }}
           >
-            {position ? (
-              <ActivityIndicator color={"white"} size={"large"} />
+            {loading ? (
+              <ActivityIndicator color={"white"} size={30} />
             ) : (
               <Ionicons name="refresh" size={30} color="white" />
             )}

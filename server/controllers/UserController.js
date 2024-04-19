@@ -91,6 +91,7 @@ const updateUser = async (req, res) => {
       phone,
       email,
       primaryEmergencyContact,
+      expoPushToken,
     } = req.body;
 
     const user = await User.findByIdAndUpdate(
@@ -120,6 +121,10 @@ const updateUser = async (req, res) => {
       });
     }
 
+    if (expoPushToken !== undefined) {
+      await user.saveExpoPushToken(expoPushToken);
+    }
+
     res.status(201).json({
       success: true,
       message: "USER UPDATED",
@@ -136,29 +141,39 @@ const saveEmergencyContact = async (req, res) => {
       contactName,
       contactPhone,
     };
-    const user = await User.findByIdAndUpdate(
-      req.user?._id,
-      {
-        $push: {
-          emergencyContactList: newContact,
-        },
-      },
-      {
-        new: true,
-        upsert: true,
-      }
-    );
+    const user = await User.findById(req.user?._id);
+    // const user = await User.findByIdAndUpdate(
+    //   req.user?._id,
+    //   {
+    //     $push: {
+    //       emergencyContactList: newContact,
+    //     },
+    //   },
+    //   {
+    //     new: true,
+    //     upsert: true,
+    //   }
+    // );
     if (!user) {
       return res.status(400).json({
         success: false,
         message: "USER NOT UPDATED",
       });
     }
-    if (!user.primaryEmergencyContact) {
+    user?.emergencyContactList?.push(newContact);
+
+    if (user?.primaryEmergencyContact === null) {
       user.primaryEmergencyContact = contactPhone;
     }
-
+    if (
+      user?.emergencyContactList.some((elem) => {
+        return elem.contactPhone !== user.primaryEmergencyContact;
+      })
+    ) {
+      user.primaryEmergencyContact = contactPhone;
+    }
     await user.save();
+
     res.status(201).json({
       success: true,
       message: "USER UPDATED",
@@ -216,10 +231,15 @@ const deleteEmergencyContact = async (req, res) => {
         message: "ADDRESS NOT DELETED",
       });
     }
+    const contact = user?.emergencyContactList?.find((elem) =>
+      elem._id.equals(new ObjectId(contactId))
+    );
     user.emergencyContactList = user.emergencyContactList.filter(
       (a) => !a._id.equals(new ObjectId(contactId))
     );
-
+    if (user?.primaryEmergencyContact === contact?.contactPhone) {
+      user.primaryEmergencyContact = null;
+    }
     await user.save();
     res.status(200).json({
       success: true,

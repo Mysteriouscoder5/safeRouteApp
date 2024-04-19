@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Button,
   Keyboard,
   StyleSheet,
@@ -11,7 +12,7 @@ import {
 import React, { useState } from "react";
 import { COLORS, INSETS, SIZES, STYLES } from "../constants/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { emailLogin, registerUser } from "../redux/reducers/userReducer";
 // import {
 //   getAuth,
@@ -30,6 +31,7 @@ const Login = () => {
   const [confirm, setConfirm] = useState(null);
   const [code, setCode] = useState("");
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
   // const login = async () => {
   //   const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber);
   //   if (!confirmationResult) {
@@ -215,6 +217,7 @@ const Login = () => {
             </View>
             <View>
               <TouchableOpacity
+                disabled={loading}
                 onPress={() => {
                   if (!loginTab) {
                     dispatch(registerUser({ username, email, password }));
@@ -222,26 +225,13 @@ const Login = () => {
                   }
                   dispatch(emailLogin({ email, password }));
                 }}
-                style={[
-                  {
-                    backgroundColor: COLORS.primary,
-                    padding: SIZES.l,
-                    borderRadius: SIZES.l,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  },
-                ]}
+                style={[STYLES.button]}
               >
-                <Text
-                  style={{
-                    fontFamily: "bold",
-                    textTransform: "uppercase",
-                    fontSize: SIZES.m,
-                    color: COLORS.white,
-                  }}
-                >
-                  continue
-                </Text>
+                {loading ? (
+                  <ActivityIndicator color={"white"} size={"small"} />
+                ) : (
+                  <Text style={[STYLES.buttonText]}>continue</Text>
+                )}
               </TouchableOpacity>
             </View>
           </View>

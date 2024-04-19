@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "667409593186",
+    "project_id": "saferouteapp-be602",
+    "storage_bucket": "saferouteapp-be602.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667409593186:android:a9b70455d3ece4fd17b23b",
+        "android_client_info": {
+          "package_name": "com.atharva5.safeRouteApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDllHV8ZFLm5fkQhZNCVBqvv2oxBb-aP-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

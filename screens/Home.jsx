@@ -17,7 +17,9 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const insets = INSETS();
+  const mapRef = useRef();
 
+  const { rooms } = useSelector((state) => state.rooms);
   const [emergencyModal, setEmergencyModal] = useState(false);
 
   const [coordinates, setCoordinates] = useState({
@@ -28,25 +30,10 @@ const Home = () => {
   const [path, setPath] = useState();
   const [houseOutline, setHouseOutline] = useState();
   const [wayOut, setWayOut] = useState();
+  const [redRooms, setRedRooms] = useState([]);
+  const [redRoomsOutline, setRedRoomsOutline] = useState(new Map());
 
   const route = useSelector((state) => state.route);
-
-  const selectRoute = async (room) => {
-    try {
-      const RoomJSON = await RoomIndex[route.Room]();
-      setHouseOutline(RoomJSON);
-      const DestJSON = await ExitIndex[route.Exit]();
-      setDestination(DestJSON);
-      const PathJSON = await PathIndex[route.Path]();
-      setPath(PathJSON);
-      const WayOutJSON = await PathIndex[route.WayOut]();
-      setWayOut(WayOutJSON);
-    } catch (error) {
-      console.log(error);
-      // console.error(`Error processing ${room}: ${error.message}`);
-    }
-  };
-  const mapRef = useRef();
 
   const reCenter = () => {
     const lat = 18.531583;
@@ -61,9 +48,57 @@ const Home = () => {
       500
     );
   };
-  //   useEffect(() => {
-  //     addDoc(collection(db, "users"), { username: "prajwal" });
-  //   }, []);
+
+  const selectRoute = async (room) => {
+    try {
+      const RoomJSON = await RoomIndex[route.Room]();
+      setHouseOutline(RoomJSON);
+      const DestJSON = await ExitIndex[route.Exit]();
+      setDestination(DestJSON);
+      const PathJSON = await PathIndex[route.Path]();
+      setPath(PathJSON);
+      const WayOutJSON = await PathIndex[route.WayOut]();
+      setWayOut(WayOutJSON);
+    } catch (error) {
+      console.log(error);
+      console.error(`Error processing ${room}: ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
+    if (rooms?.length > 0) {
+      rooms?.map((item, i) => {
+        if (item?.temperature > 50) {
+          setRedRooms((state) => {
+            if (state.some((elem) => elem?.roomNumber === item?.roomNumber)) {
+              return state;
+            } else return [...state, item];
+          });
+        }
+      });
+    }
+  }, [rooms]);
+
+  useEffect(() => {
+    const updateRedRoomsOutline = async () => {
+      const newRedRoomsMap = new Map();
+      if (redRooms) {
+        for (const item of redRooms) {
+          let roomJSON = await RoomIndex[`Room${item?.roomNumber}`]();
+          let newRoomJSON = { ...roomJSON };
+          newRedRoomsMap.set(item.roomNumber, newRoomJSON);
+        }
+      }
+      setRedRoomsOutline(newRedRoomsMap);
+    };
+
+    updateRedRoomsOutline();
+  }, [redRooms]);
+
+  // useEffect(() => {
+  //   console.log(redRoomsOutline);
+  // }, [redRoomsOutline]);
+
 
   useEffect(() => {
     selectRoute();
@@ -116,6 +151,9 @@ const Home = () => {
         houseOutline={houseOutline}
         paths={path}
         wayOut={wayOut}
+        redRooms={redRooms}
+        setRedRoomsOutline={setRedRoomsOutline}
+        redRoomsOutline={redRoomsOutline}
         ref={mapRef}
       />
 
